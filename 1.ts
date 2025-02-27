@@ -1,93 +1,93 @@
-// Задание 1
-function findMinPositive(arr: number[]): number | null {
-    let minPositive = Infinity;
-    let hasPositive = false;
+function calculateAverage(numbers: number[]): number {
+    const sum = numbers.reduce((acc, curr) => acc + curr, 0);
+    return numbers.length > 0 ? sum / numbers.length : 0;
+}
 
-    for (let num of arr) {
-        if (num > 0 && num < minPositive) {
-            minPositive = num;
-            hasPositive = true;
+function countInRange(matrix: number[][], min: number, max: number): number {
+    let count = 0;
+    for (const row of matrix) {
+        for (const value of row) {
+            if (value >= min && value <= max) {
+                count++;
+            }
         }
     }
-
-    return hasPositive ? minPositive : null;
+    return count;
 }
 
-function createBooleanMatrix(matrix: string[][]): boolean[][] {
-    return matrix.map(row => row.map(element => element.length % 2 === 1));
+type MyTuple = [string, string, number];
+
+function formatTuple(tuple: MyTuple): string {
+    return `${tuple[0]} - ${tuple[2]} - ${tuple[1]}`;
 }
 
-// Задание 2
-type NumberTuple = [number, number];
-
-function sumOfDigits(n: number): number {
-    return n.toString().split('').reduce((acc, digit) => acc + parseInt(digit), 0);
+enum OilType {
+    Slivochnoe = "Сливочное",
+    Sunflower = "Подсолнечное",
 }
 
-function areSumOfDigitsEqual([num1, num2]: NumberTuple): boolean {
-    return sumOfDigits(num1) === sumOfDigits(num2);
-}
-
-// Задание 3
-enum RNABases {
-    Adenine = 'Adenine',
-    Guanine = 'Guanine',
-    Cytosine = 'Cytosine',
-    Uracil = 'Uracil'
-}
-
-console.log(RNABases.Adenine);
-
-// Задание 4
 class Pet {
-    name: string = 'какое-то животное';
-    age: number = 1;
+    name: string = 'Some pet';
+    age: number = -1;
 
-    speak() {
-        return "Я не умею разговаривать!";
+    speak(): string {
+        return "No speak. I am fish!";
     }
 }
 
 class Dog extends Pet {
-    label: string = "Бобик";
-    age: number = 8;
+    label = "AngryHunter";
+    age = 8;
 
-    speak() {
-        return "Гав-гав!";
+    speak(): string {
+        return "Yaw-Gaw!";
     }
 }
 
 class Cat extends Pet {
-    name: string = 'Барсик';
-    age: number = 2;
+    name = 'Barsik';
+    age = 2;
 
-    speak() {
-        return "Мяу!";
+    speak(): string {
+        return "Miyau!";
     }
 }
 
 function printPetInfo<T extends Pet>(pet: T): void {
-    console.log(`Name: ${pet.name}, Age: ${pet.age}, Speak: ${pet.speak()}`);
+    console.log(`Имя: ${pet.name}, Возраст: ${pet.age}, Звук: ${pet.speak()}`);
 }
+
+type OilProduct = {
+    type: OilType;
+    brand: string;
+    volume: number;
+};
+
+const myOilProduct: OilProduct = {
+    type: OilType.Sunflower,
+    brand: "Золотая семечка",
+    volume: 5
+};
+
+const average = calculateAverage([1, 2, 3, 4, 5]);
+console.log(`Среднее арифметическое: ${average}`);
+
+const matrix = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+];
+const count = countInRange(matrix, 3, 6);
+console.log(`Количество значений в интервале: ${count}`);
+
+const myTuple: MyTuple = ["Первая строка", "Вторая строка", 42];
+console.log(formatTuple(myTuple));
+
+console.log(OilType.Slivochnoe);
 
 const myDog = new Dog();
 const myCat = new Cat();
-
 printPetInfo(myDog);
 printPetInfo(myCat);
 
-// Задание 5
-class RNA {
-    base: RNABases;
-    sequenceLength: number;
-    isCoding: boolean;
-
-    constructor(base: RNABases, sequenceLength: number, isCoding: boolean) {
-        this.base = base;
-        this.sequenceLength = sequenceLength;
-        this.isCoding = isCoding;
-    }
-}
-
-const myRNA = new RNA(RNABases.Adenine, 100, true);
-console.log(JSON.stringify(myRNA, null, 2));
+console.log(JSON.stringify(myOilProduct));
